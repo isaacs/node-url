@@ -2,4 +2,6 @@
 ,"version":"1.0.0"
 ,"description":"The url module from nodejs"
 ,"main":"url.js"
+,"dependencies":{"querystring":"*"}
+,"repositories":[{"type":"git","url":"https://github.com/isaacs/node-url.git"}]
 ,"scripts":{"test":"node test-url.js"}}
