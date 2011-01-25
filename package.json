@@ -1,0 +1,5 @@
+{"name":"url"
+,"version":"1.0.0"
+,"description":"The url module from nodejs"
+,"main":"url.js"
+,"scripts":{"test":"node test-url.js"}}
