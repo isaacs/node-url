@@ -7,7 +7,7 @@ exports.format = urlFormat;
 // compiled once on the first module load.
 var protocolPattern = /^([a-z0-9]+:)/,
     portPattern = /:[0-9]+$/,
-    nonHostChars = ['/', '?', ';', '#'],
+    nonHostChars = /[\/\?;#]/,
     hostlessProtocol = {
       'file': true,
       'file:': true
@@ -55,12 +55,9 @@ function urlParse(url, parseQueryString, slashesDenoteHost) {
     // there's a hostname.
     // the first instance of /, ?, ;, or # ends the host.
     // don't enforce full RFC correctness, just be unstupid about it.
-    var firstNonHost = -1;
-    for (var i = 0, l = nonHostChars.length; i < l; i++) {
-      var index = rest.indexOf(nonHostChars[i]);
-      if (index !== -1 &&
-          (firstNonHost < 0 || index < firstNonHost)) firstNonHost = index;
-    }
+    var nonHostMatch = rest.match(nonHostChars),
+        firstNonHost = nonHostMatch ? nonHostMatch.index : -1;
+    
     if (firstNonHost !== -1) {
       out.host = rest.substr(0, firstNonHost);
       rest = rest.substr(firstNonHost);
